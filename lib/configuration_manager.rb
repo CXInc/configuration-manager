@@ -1,3 +1,4 @@
+require "configuration_manager/railtie"
 require "configuration_manager/version"
 
 module ConfigurationManager
