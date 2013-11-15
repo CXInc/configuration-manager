@@ -1,12 +1,8 @@
+require "configuration_manager/configuration"
 require "configuration_manager/railtie"
 require "configuration_manager/version"
 
 module ConfigurationManager
-
-  IGNORED_CONFIGS = [
-    :cached_streaming_extensions_updated_at,
-    :cached_streaming_extensions
-  ]
 
   def reload_config
     AppConfig.reload!
@@ -44,7 +40,9 @@ module ConfigurationManager
   end
 
   def relevant_configs(data)
-    IGNORED_CONFIGS.each do |config|
+    ignored_configs = ConfigurationManager.configuration.ignored_configs
+
+    ignored_configs.each do |config|
       ["development", "test"].each do |env|
         data[env].delete config.to_s
       end
