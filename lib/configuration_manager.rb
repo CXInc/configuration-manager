@@ -44,7 +44,7 @@ module ConfigurationManager
 
     ignored_configs.each do |config|
       ["development", "test"].each do |env|
-        data[env].delete config.to_s
+        data[env].delete config.to_s if data[env]
       end
     end
 
