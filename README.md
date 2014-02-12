@@ -1,29 +1,41 @@
-# ConfigurationManager
+Configuration Manager
+=====================
 
-TODO: Write a gem description
+Rails development configuration management and theme switching. This is specific
+to how application configuration and theme handling are done at CX, and hasn't
+been made more generally useful yet.
 
-## Installation
+Install
+-------
 
-Add this line to your application's Gemfile:
+Add to your Gemfile:
 
-    gem 'configuration_manager'
+     gem "configuration_manager"
 
-And then execute:
+In your ApplicationController:
 
-    $ bundle
+    include ConfigurationManager
 
-Or install it yourself as:
+    if Rails.env.development? || Rails.env.test?
+      before_filter :reload_config
+      before_filter :check_configuration_freshness
+    end
 
-    $ gem install configuration_manager
+If there are configurations that should be ignored, add them in config/initializers/configuration_manager.rb:
 
-## Usage
+    ConfigurationManager.configure do |config|
+      config.ignored_configs = [:key_to_ignore, :another_one]
+    end
 
-TODO: Write usage instructions here
+Add default theme configurations as config/application.{theme name}.dev.yml. All of these will require updates whenever new developement configurations are added.
 
-## Contributing
+Usage
+-----
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Update to the latest config for the current theme:
+
+    rake config:update
+
+Switch themes:
+
+    rake config:switch THEME={theme name}
