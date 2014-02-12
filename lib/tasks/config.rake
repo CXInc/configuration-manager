@@ -11,7 +11,7 @@ namespace :config do
   end
 
   desc "Update the current configuration"
-  task :update => :environment do
+  task :update do
     theme = AppConfig.theme
 
     puts "= Updating config, using the #{theme} configuration"
