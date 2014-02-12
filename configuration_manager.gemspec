@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ConfigurationManager::VERSION
   spec.authors       = ["Bruz Marzolf"]
   spec.email         = ["bruz@cx.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Manage development configurations for themed apps}
+  spec.summary       = %q{Themed app configuration management}
   spec.homepage      = ""
   spec.license       = "MIT"
 
