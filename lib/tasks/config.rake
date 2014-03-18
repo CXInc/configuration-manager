@@ -1,10 +1,13 @@
+require_relative '../configuration_manager/merger'
+
 namespace :config do
-  desc "Switch configurations to another theme, specieid by THEME"
+
+  desc "Switch configurations to another theme, specified by THEME"
   task :switch do
     theme = ENV['THEME']
 
     puts "= Switching to the #{theme} configuration"
-    copy_theme(theme)
+    ConfigurationManager::Merger.write(theme)
 
     puts "= Clearing temp files"
     Rake::Task["tmp:clear"].invoke
@@ -15,13 +18,7 @@ namespace :config do
     theme = AppConfig.theme
 
     puts "= Updating config, using the #{theme} configuration"
-    copy_theme(theme)
+    ConfigurationManager::Merger.write(theme)
   end
 
-  def copy_theme(theme)
-    source = "#{Rails.root}/config/application.#{theme}.dev.yml"
-    dest = "#{Rails.root}/config/application.yml"
-
-    system "cp #{source} #{dest}"
-  end
 end
